@@ -1,26 +1,47 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import Header from './Header'
+import MemeGenerator from './MemeGenerator'
+import './App.css'
+class App extends React.Component {
+  constructor(){
+    super()
+    this.state={
+      on: false,
+      mode: "Dark Mode",
+      backgroundColor: "white",
+      color: "black"
+    }
+    this.colorChange=this.colorChange.bind(this)
+  }
+  colorChange(){
+    if(this.state.on===false){
+      return this.setState({
+        on: true,
+        mode: "Dark Mode",
+        backgroundColor: "#262833",
+        color: "white"
+      })
+    } return this.setState({
+      on: false,
+      mode: "White Mode",
+      backgroundColor: "white",
+      color: "black"
+    })
+  }
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  render(){
+    return (
+      <div style={{backgroundColor: this.state.backgroundColor, color:this.state.color, height: '100vh'}}>
+      <Header tColor={this.state.color}/>
+      <MemeGenerator />
+      <label className="switch">
+
+        <input type="checkbox" onChange={this.colorChange}/>
+        <span className="slider round">{this.state.mode}</span>
+      </label>
+
+      </div>
+    )
+  }
 }
-
-export default App;
+export default App
